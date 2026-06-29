@@ -38,9 +38,9 @@ function initGame() {
     }
 
     // Character setup
-    if (typeof character !== "undefined") {
-        character.updateAbilityModifiers();
-        if (typeof updateCharacterDetails === "function") {
+	if (Game.character) {
+			Game.character.updateAbilityModifiers();
+		if (typeof updateCharacterDetails === "function") {
             updateCharacterDetails();
         }
     }
