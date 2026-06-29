@@ -2,6 +2,7 @@
 
 const abilityIncreaseLevels = [4, 8, 12, 16, 19];
 
+// Character is now managed under Game.character (see game.js)
 const character = {
     name: "Miene Dragonhold",
     class: "Dragon Maiden",
