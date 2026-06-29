@@ -415,7 +415,7 @@ function updateStatusPanel() {
     const tooltipDescription = document.getElementById("tooltip-description");
     const tooltipEffects = document.getElementById("tooltip-effects");
 
-    console.log("Current effects:", currentEffects);
+// console.log("Current effects:", currentEffects);   //
 
     // Initially hide the description and effects
     statusDescription.style.display = "none";
