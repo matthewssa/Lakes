@@ -164,15 +164,15 @@ function equipItemFromDropdown(slot, dropdownId) {
 
     // Equip the item and update the character's stats
     if (slot === 'Weapon') {
-        character.equippedWeapon = itemToEquip;
-        character.damageRoll = itemToEquip.damage_roll;
+        Game.character.equippedWeapon = itemToEquip;
+        Game.character.damageRoll = itemToEquip.damage_roll;
         document.getElementById('current-weapon').textContent = `Currently Equipped: ${itemToEquip.displayName}`;
         document.getElementById('character-damage-roll').textContent = character.damageRoll;
     } else if (slot === 'Shield') {
-        character.equippedShield = itemToEquip;
+        Game.character.equippedShield = itemToEquip;
         document.getElementById('current-shield').textContent = `Currently Equipped: ${itemToEquip.displayName}`;
     } else if (slot === 'Body') {
-        character.equippedBody = itemToEquip;
+        Game.character.equippedBody = itemToEquip;
         document.getElementById('current-body').textContent = `Currently Equipped: ${itemToEquip.displayName}`;
     }
 
