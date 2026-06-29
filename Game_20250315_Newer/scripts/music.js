@@ -76,7 +76,9 @@ const MusicController = (() => {
 window.toggleMusic = MusicController.toggleMusic;
 
 // Initialize the music controller after the DOM has loaded
+/* 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOMContentLoaded event triggered");
     MusicController.init();
 });
+*/
