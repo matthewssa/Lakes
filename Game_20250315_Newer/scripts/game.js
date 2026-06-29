@@ -1,5 +1,26 @@
 
 // ======================
+// MAIN GAME CONTAINER
+// ======================
+
+const Game = {
+    // Core systems
+    character: character,           // We'll move things here gradually
+    items: typeof items !== 'undefined' ? items : [],
+    zones: typeof zones !== 'undefined' ? zones : [],
+    
+    // Game state
+    isInitialized: false,
+    currentScreen: 'mainMenu', // 'mainMenu' or 'game'
+    
+    // Helper to mark initialization done
+    markInitialized() {
+        this.isInitialized = true;
+        console.log("🎮 Game fully initialized and ready.");
+    }
+};
+
+// ======================
 // CENTRAL INITIALIZATION
 // ======================
 
@@ -23,8 +44,12 @@ function initGame() {
     if (typeof initializePanels === "function") {
         initializePanels();
     }
+	
+	Game.markInitialized();
 
     console.log("✅ Game initialization complete!");
+	
+	
 }
 
 // Run initialization when everything is ready
