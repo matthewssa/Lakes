@@ -1,4 +1,34 @@
 
+// ======================
+// CENTRAL INITIALIZATION
+// ======================
+
+function initGame() {
+    console.log("🚀 Initializing Dungeons & Exiles...");
+
+    // Initialize music
+    if (typeof MusicController !== "undefined" && MusicController.init) {
+        MusicController.init();
+    }
+
+    // Initialize character and other systems
+    if (typeof character !== "undefined") {
+        character.updateAbilityModifiers();
+        updateCharacterDetails(); // Make sure this function exists
+    }
+
+    // Initialize panels and UI
+    if (typeof initializePanels !== "undefined") {
+        initializePanels();
+    }
+
+    // Add more initialization calls here as we go
+
+    console.log("✅ Game initialization complete!");
+}
+
+// Run initialization when everything is ready
+document.addEventListener('DOMContentLoaded', initGame);
 
 
 
