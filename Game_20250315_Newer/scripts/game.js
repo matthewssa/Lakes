@@ -347,11 +347,11 @@ function dropItem(itemName) {
 // Function to use an item from the inventory
 function useItem(itemName) {
     // Find the item in the inventory
-    const itemIndex = character.inventory.findIndex(item => item.name === itemName);
+    const itemIndex = Game.character.inventory.findIndex(item => item.name === itemName);
     
     // Check if the item exists
     if (itemIndex !== -1) {
-        const usedItem = character.inventory[itemIndex]; // Reference the item to be used
+        const usedItem = Game.character.inventory[itemIndex]; // Reference the item to be used
         alert(`You have used: ${usedItem.name}. Effect: ${usedItem.effect}`);
 
         // Here you can implement the effect of the item on the character's stats
