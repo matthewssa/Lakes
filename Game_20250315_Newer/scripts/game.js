@@ -5,7 +5,7 @@
 
 const Game = {
     // Core systems
-    character: character,           // We'll move things here gradually
+    character: null,           // We'll move things here gradually
     items: typeof items !== 'undefined' ? items : [],
     zones: typeof zones !== 'undefined' ? zones : [],
     
@@ -30,6 +30,11 @@ function initGame() {
     // Initialize music (only once)
     if (typeof MusicController !== "undefined" && MusicController.init) {
         MusicController.init();
+    }
+
+    // Attach character to main Game object   <--- NEW
+    if (typeof character !== "undefined") {
+        Game.character = character;
     }
 
     // Character setup
