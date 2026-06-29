@@ -86,9 +86,9 @@ function openEquipWindow() {
     populateDropdown('Body', 'body-dropdown');
 
 // Set default description for each equipped item
-document.getElementById('current-weapon').textContent = `Currently Equipped: ${character.equippedWeapon?.displayName || "None"}`;
-document.getElementById('current-shield').textContent = `Currently Equipped: ${character.equippedShield?.displayName || "None"}`;
-document.getElementById('current-body').textContent = `Currently Equipped: ${character.equippedBody?.displayName || "None"}`;
+document.getElementById('current-weapon').textContent = `Currently Equipped: ${Game.character.equippedWeapon?.displayName || "None"}`;
+document.getElementById('current-shield').textContent = `Currently Equipped: ${Game.character.equippedShield?.displayName || "None"}`;
+document.getElementById('current-body').textContent = `Currently Equipped: ${Game.character.equippedBody?.displayName || "None"}`;
 
     // Reset description box to default message
     document.getElementById('equip-description').textContent = DEFAULT_DESCRIPTION_MESSAGE;
