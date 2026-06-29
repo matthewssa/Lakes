@@ -408,7 +408,7 @@ function clearDescription() {
 // Function to open the profile window
 function openProfileWindow() {
     console.log("Opening Profile Window"); // Debugging statement
-    updateCharacterDetails();  // Update character details
+	if (Game.character) updateCharacterDetails();
     document.getElementById("profile-window-overlay").style.display = "block"; // Corrected id
 
     // Bring profile window to the front
@@ -424,7 +424,7 @@ function closeProfileWindow() {
 // Function to open the status window
 function openStatusWindow() {
     console.log("Opening Status Window"); // Debugging statement
-    updateCharacterDetails();  // Update character details
+	if (Game.character) updateCharacterDetails();
     document.getElementById("status-window-overlay").style.display = "block"; // Corrected id
 
     // Bring status window to the front
