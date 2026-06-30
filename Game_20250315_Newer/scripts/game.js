@@ -564,7 +564,10 @@ function calculateTotalAC() {
 
 // Function to update character details on the screen
 function updateCharacterDetails() {
-	if (!Game.character) return;
+	if (!Game.character) {
+        console.warn("updateCharacterDetails called before character was ready.");
+        return;
+    }
 
     Game.character.checkDeadStatus();
 	
