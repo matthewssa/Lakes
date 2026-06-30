@@ -1,3 +1,5 @@
+// Resize logic for enemy panel.
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const rollPanel = document.querySelector('#enemyPanel'); // Updated selector to match your ID
     const rollTitle = document.querySelector('.enemy-title');
