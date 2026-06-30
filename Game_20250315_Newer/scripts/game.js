@@ -1,46 +1,40 @@
+// ========================================
+// 1. CORE GAME OBJECT & INITIALIZATION
+// ========================================
 
-// ======================
-// MAIN GAME CONTAINER
-// ======================
-
+// Main Game Container - Central hub for all game state
 const Game = {
-    // Core systems
-    character: null,           // We'll move things here gradually
+    character: null,
     items: typeof items !== 'undefined' ? items : [],
     zones: typeof zones !== 'undefined' ? zones : [],
     
-    // Game state
     isInitialized: false,
     currentScreen: 'mainMenu', // 'mainMenu' or 'game'
     
-    // Helper to mark initialization done
     markInitialized() {
         this.isInitialized = true;
         console.log("🎮 Game fully initialized and ready.");
     }
 };
 
-// ======================
-// CENTRAL INITIALIZATION
-// ======================
-
+// Central Initialization
 function initGame() {
     console.log("🚀 Initializing Dungeons & Exiles...");
 
-    // Initialize music (only once)
+    // Initialize music
     if (typeof MusicController !== "undefined" && MusicController.init) {
         MusicController.init();
     }
 
-    // Attach character to main Game object   <--- NEW
+    // Attach character
     if (typeof character !== "undefined") {
         Game.character = character;
     }
 
     // Character setup
-	if (Game.character) {
-			Game.character.updateAbilityModifiers();
-		if (typeof updateCharacterDetails === "function") {
+    if (Game.character) {
+        Game.character.updateAbilityModifiers();
+        if (typeof updateCharacterDetails === "function") {
             updateCharacterDetails();
         }
     }
@@ -49,16 +43,17 @@ function initGame() {
     if (typeof initializePanels === "function") {
         initializePanels();
     }
-	
-	Game.markInitialized();
+
+    Game.markInitialized();
 
     console.log("✅ Game initialization complete!");
-	
-	
 }
 
 // Run initialization when everything is ready
 document.addEventListener('DOMContentLoaded', initGame);
+
+
+
 
 
 
