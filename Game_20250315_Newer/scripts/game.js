@@ -580,6 +580,27 @@ function loadGame(savedData) {
 // Room navigation and choices
 
 
+// ========================================
+// 9. COMBAT & ENEMIES
+// ========================================
+
+// Combat and enemy logic (in enemies.js and game.js)
+
+
+// ========================================
+// 10. STATUS EFFECTS & H SYSTEM
+// ========================================
+
+// Status effects, arousal, alcohol, durations, etc.
+// (in status_effects.js)
+
+
+// ========================================
+// 11. CHEATS & DEBUG
+// ========================================
+
+// Cheat menu and debug tools (in cheatMenu.js)
+
 
 
 ////////////////////////////////
