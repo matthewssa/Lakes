@@ -1,3 +1,4 @@
+// Image sleep / rest system.
 ///////////////////// Sleeping Images Section /////////////////////////
 // Array of sleeping images
 const sleepingImages = [
