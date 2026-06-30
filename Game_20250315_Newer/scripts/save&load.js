@@ -1,15 +1,14 @@
+// Save and load system. Uses Game.character for data.
 
 // Array of save slots with timestamps
 const saveSlots = [
     { id: 1, name: 'Save Slot 1', data: null, timestamp: null },
     { id: 2, name: 'Save Slot 2', data: null, timestamp: null },
     { id: 3, name: 'Save Slot 3', data: null, timestamp: null },
-	{ id: 4, name: 'Save Slot 4', data: null, timestamp: null },
-	{ id: 5, name: 'Save Slot 5', data: null, timestamp: null },
-	{ id: 6, name: 'Save Slot 6', data: null, timestamp: null },
-
+    { id: 4, name: 'Save Slot 4', data: null, timestamp: null },
+    { id: 5, name: 'Save Slot 5', data: null, timestamp: null },
+    { id: 6, name: 'Save Slot 6', data: null, timestamp: null },
 ];
-
 
 // Array of load slots (same structure as saveSlots)
 const loadSlots = [
@@ -23,7 +22,7 @@ const loadSlots = [
 
 // Main Menu Load Button
 function loadGame_MainMenu() {
-    openLoadPopup(); // Opens the same load popup as in the game screen
+    openLoadPopup();
 }
 
 // Open the save popup and display save slots
@@ -36,13 +35,13 @@ function openSavePopup() {
 // Close the save popup
 function closeSavePopup() {
     document.getElementById('save-popup-overlay').style.display = 'none';
-    document.querySelector('.save-window').style.display = 'none'; // Ensure the save window is also hidden
+    document.querySelector('.save-window').style.display = 'none';
 }
 
 // Add event listeners to close when clicked outside window
 document.getElementById('save-popup-overlay').addEventListener('mousedown', function(event) {
     if (event.target === this) {
-        closeSavePopup(); 
+        closeSavePopup();
     }
 });
 
@@ -53,23 +52,17 @@ let selectedSaveSlotElement = null;
 // Display available save slots with timestamps
 function displaySaveSlots() {
     const saveSlotList = document.getElementById('save-slot-list');
-    saveSlotList.innerHTML = ''; // Clear existing slots
-
+    saveSlotList.innerHTML = '';
     saveSlots.forEach(slot => {
         const savedData = JSON.parse(localStorage.getItem(`saveSlot${slot.id}`));
         const timestamp = savedData ? savedData.timestamp : 'Available';
-
         const slotElement = document.createElement('div');
         slotElement.classList.add('save-slot');
-        slotElement.id = `save-slot-${slot.id}`; // Unique ID for save slots
-
-        // Slot content with click to select
+        slotElement.id = `save-slot-${slot.id}`;
         slotElement.innerHTML = `
             <div class="save-slot-name" onclick="selectSaveSlot(${slot.id})">${slot.name}</div>
             <div class="save-slot-timestamp">${timestamp}</div>
- 
         `;
-
         saveSlotList.appendChild(slotElement);
     });
 }
@@ -77,21 +70,14 @@ function displaySaveSlots() {
 // Select a save slot
 function selectSaveSlot(slotId) {
     selectedSlot = saveSlots.find(slot => slot.id === slotId);
-
-    // Remove highlight from the previously selected slot
     if (selectedSaveSlotElement) {
         selectedSaveSlotElement.classList.remove('save-selected-slot');
     }
-
-    // Highlight the newly selected save slot
     selectedSaveSlotElement = document.querySelector(`#save-slot-${slotId}`);
     selectedSaveSlotElement.classList.add('save-selected-slot');
-	
-    // Check if the selected slot has saved data
+
     const savedData = JSON.parse(localStorage.getItem(`saveSlot${slotId}`));
-    
-    // Enable or disable the delete button based on saved data
-    document.querySelector('.delete-save-button').disabled = !savedData; // Disable if there's no saved data
+    document.querySelector('.delete-save-button').disabled = !savedData;
 }
 
 function deleteSelectedSaveSlot() {
@@ -115,7 +101,7 @@ function confirmSaveDelete() {
         selectedSlot = null;
         selectedSaveSlotElement = null;
         document.querySelector('.delete-save-button').disabled = true;
-        displaySaveSlots(); 
+        displaySaveSlots();
         closeSaveDeletePrompt();
     }
 }
@@ -127,110 +113,91 @@ function closeSaveDeletePrompt() {
 // Add event listeners to close when clicked outside window
 document.getElementById('delete-save-prompt-overlay').addEventListener('mousedown', function(event) {
     if (event.target === this) {
-        closeSaveDeletePrompt(); 
+        closeSaveDeletePrompt();
     }
 });
 
 function confirmSave() {
     if (selectedSlot) {
-        // Save character data by spreading the character object
         const saveData = {
             character: {
-                ...character, // Spread the entire character object
-                characterCreated: localStorage.getItem('characterCreated') === 'true' // Keep the characterCreated flag in the character object
+                ...Game.character, // Spread the entire character object
+                characterCreated: true
             },
             currentLocation: {
-                functionName: "showRoomDetails",  // The name of the function
+                functionName: "showRoomDetails",
                 zoneIndex: latestActiveRoom ? parseInt(latestActiveRoom.match(/\d+/)[0]) : 0
             },
-            timestamp: new Date().toLocaleString(), // Save timestamp
+            timestamp: new Date().toLocaleString(),
         };
 
-        // Save to the selected slot in localStorage
         localStorage.setItem(`saveSlot${selectedSlot.id}`, JSON.stringify(saveData));
-
         showStyledAlert(`${selectedSlot.name} saved successfully!`);
         closeSavePopup();
-        displaySaveSlots(); // Refresh save slot display with new timestamp
+        displaySaveSlots();
     } else {
         showStyledAlert('Please select a save slot first.');
     }
 }
 
-
-
-
 // Open the load popup and display load slots
 function openLoadPopup() {
     document.getElementById('load-popup-overlay').style.display = 'block';
-	document.querySelector('.load-window').style.display = 'block';
+    document.querySelector('.load-window').style.display = 'block';
     displayLoadSlots();
 }
-
 
 // Close the load popup
 function closeLoadPopup() {
     document.getElementById('load-popup-overlay').style.display = 'none';
-		document.querySelector('.load-window').style.display = 'none';
+    document.querySelector('.load-window').style.display = 'none';
 }
 
 // Add event listeners to close when clicked outside window
 document.getElementById('load-popup-overlay').addEventListener('mousedown', function(event) {
     if (event.target === this) {
-        closeLoadPopup(); 
+        closeLoadPopup();
     }
 });
-
 
 // Display available load slots with timestamps
 function displayLoadSlots() {
     const loadSlotList = document.getElementById('load-slot-list');
-    loadSlotList.innerHTML = ''; // Clear existing slots
-
+    loadSlotList.innerHTML = '';
     loadSlots.forEach(slot => {
         const savedData = JSON.parse(localStorage.getItem(`saveSlot${slot.id}`));
-        const timestamp = savedData ? savedData.timestamp : null;
-
+        const timestamp = savedData ? savedData.timestamp : 'Available';
         const slotElement = document.createElement('div');
-        slotElement.classList.add('item');
-
-        // Show timestamp if data exists, otherwise show "Available"
+        slotElement.classList.add('load-slot');
+        slotElement.id = `slot-${slot.id}`;
         slotElement.innerHTML = `
-            <div class="save-slot-name" onclick="selectLoadSlot(${slot.id})">${slot.name}</div>
-            <div class="save-slot-timestamp">${timestamp ? timestamp : 'Available'}</div>
+            <div class="load-slot-name" onclick="selectLoadSlot(${slot.id})">${slot.name}</div>
+            <div class="load-slot-timestamp">${timestamp}</div>
         `;
-
         loadSlotList.appendChild(slotElement);
     });
+    document.querySelector('.delete-load-button').disabled = true;
 }
+
 // Select a load slot
 let selectedLoadSlot = null;
-let selectedLoadSlotElement = null; // Track the currently selected slot
+let selectedLoadSlotElement = null;
 
 function selectLoadSlot(slotId) {
     selectedLoadSlot = loadSlots.find(slot => slot.id === slotId);
-
-    // Remove highlight from the previously selected slot
     if (selectedLoadSlotElement) {
         selectedLoadSlotElement.classList.remove('load-selected-slot');
     }
-
-    // Highlight the newly selected slot
     selectedLoadSlotElement = document.querySelector(`#slot-${slotId}`);
     selectedLoadSlotElement.classList.add('load-selected-slot');
-    
-    // Check if the selected slot has saved data
+
     const savedData = JSON.parse(localStorage.getItem(`saveSlot${slotId}`));
-    
-    // Enable or disable the delete button based on saved data
     document.querySelector('.delete-load-button').disabled = !savedData;
 }
 
-// Delete the selected load slot
 function deleteSelectedLoadSlot() {
     if (selectedLoadSlot) {
         const savedData = JSON.parse(localStorage.getItem(`saveSlot${selectedLoadSlot.id}`));
-
         if (savedData) {
             document.getElementById('delete-load-prompt-overlay').style.display = 'block';
         } else {
@@ -241,33 +208,21 @@ function deleteSelectedLoadSlot() {
     }
 }
 
-// Confirm deletion of selected load slot
 function confirmLoadDelete() {
     if (selectedLoadSlot) {
         const slotId = selectedLoadSlot.id;
         localStorage.removeItem(`saveSlot${slotId}`);
         showStyledAlert(`${selectedLoadSlot.name} has been deleted.`);
-        
-        // Remove highlight from the deleted slot
         if (selectedLoadSlotElement) {
             selectedLoadSlotElement.classList.remove('load-selected-slot');
         }
-        
-        // Reset selected slot variables
         selectedLoadSlot = null;
         selectedLoadSlotElement = null;
-        
-        // Disable the delete button
         document.querySelector('.delete-load-button').disabled = true;
-        
-        // Refresh the display of load slots
-        displayLoadSlots(); 
-        
-        // Close delete confirmation prompt
+        displayLoadSlots();
         closeLoadDeletePrompt();
     }
 }
-
 
 function closeLoadDeletePrompt() {
     document.getElementById('delete-load-prompt-overlay').style.display = 'none';
@@ -276,45 +231,15 @@ function closeLoadDeletePrompt() {
 // Add event listeners to close when clicked outside window
 document.getElementById('delete-load-prompt-overlay').addEventListener('mousedown', function(event) {
     if (event.target === this) {
-        closeLoadDeletePrompt(); 
+        closeLoadDeletePrompt();
     }
 });
 
-
-// Display available load slots with timestamps
-function displayLoadSlots() {
-    const loadSlotList = document.getElementById('load-slot-list');
-    loadSlotList.innerHTML = ''; // Clear existing slots
-
-    loadSlots.forEach(slot => {
-        const savedData = JSON.parse(localStorage.getItem(`saveSlot${slot.id}`));
-        const timestamp = savedData ? savedData.timestamp : 'Available';
-
-        const slotElement = document.createElement('div');
-        slotElement.classList.add('load-slot');
-        slotElement.id = `slot-${slot.id}`; // Assign a unique ID
-
-        // Slot content with click to select
-        slotElement.innerHTML = `
-            <div class="load-slot-name" onclick="selectLoadSlot(${slot.id})">${slot.name}</div>
-            <div class="load-slot-timestamp">${timestamp}</div>
-        `;
-
-        loadSlotList.appendChild(slotElement);
-    });
-    
-    // Disable the delete button initially
-    document.querySelector('.delete-load-button').disabled = true;
-}
-
-
-// Confirm the load action
 function confirmLoad() {
     if (selectedLoadSlot) {
         const savedData = JSON.parse(localStorage.getItem(`saveSlot${selectedLoadSlot.id}`));
         if (savedData) {
-            // Load the game state
-            loadGame(savedData); // Pass the loaded data here
+            loadGame(savedData);
             showStyledAlert(`${selectedLoadSlot.name} loaded successfully!`);
             closeLoadPopup();
         } else {
@@ -326,29 +251,17 @@ function confirmLoad() {
 }
 
 function loadGame(savedData) {
-    if (savedData) {
-        // Restore character data by spreading the saved data into character
-        const { character, currentLocation } = savedData;
-
-        // Spread character properties
-        Object.assign(character, character); // Copy all properties into the character object
-        character.characterCreated = savedData.character.characterCreated;
-
-        // Check if character creation is done and update the UI
-        document.getElementById("action-prompt").style.display = character.characterCreated ? 'none' : 'block';
-
-        // Continue with the game loading, such as loading location, etc.
+    if (savedData && savedData.character) {
+        Object.assign(Game.character, savedData.character);
         updateCharacterDetails();
         document.getElementById("start-screen").style.display = 'none';
         document.getElementById("game-screen").style.display = 'flex';
 
-        // Load the room based on saved data
-        if (currentLocation && currentLocation.functionName && currentLocation.zoneIndex !== undefined) {
-            const { functionName, zoneIndex } = currentLocation;
+        // Load location if available
+        if (savedData.currentLocation) {
+            const { functionName, zoneIndex } = savedData.currentLocation;
             if (typeof window[functionName] === "function") {
-                window[functionName](zoneIndex);  // Dynamically call the correct function with the zone index
-            } else {
-                showStyledAlert('Error: Function not found for the saved room.');
+                window[functionName](zoneIndex);
             }
         }
     } else {
