@@ -1,3 +1,5 @@
+// Zone and location data.
+
 const zones = [
     {
         zoneName: "Miene's Bedroom",
