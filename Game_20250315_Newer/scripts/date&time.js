@@ -118,13 +118,17 @@ function decreaseAlcoholOverTime() {
     } else {
         console.log("Alcohol Percentage is already 0"); // Debug
     }
+if (typeof Game !== "undefined" && Game.character) {
     updateCharacterDetails();
+}
 }
 
 // Initialize the time display when the game starts
 document.addEventListener('DOMContentLoaded', () => {
     updateDateTimeDisplay();
-    updateCharacterDetails(); // Ensure the status window is updated on load
+if (typeof Game !== "undefined" && Game.character) {
+    updateCharacterDetails();
+}
 });
 
 // Example: Add minutes to the game time
