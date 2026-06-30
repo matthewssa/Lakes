@@ -53,7 +53,262 @@ function initGame() {
 document.addEventListener('DOMContentLoaded', initGame);
 
 
+// ========================================
+// 2. UI MANAGEMENT (Panels, Overlays, Tooltips, Resize)
+// ========================================
 
+// Bring panel to front (z-index management)
+let highestZIndex = 100;
+
+function initializePanels() {
+    const panels = [
+        'rollPanel', 'actionPanel', 'storyPanel', 'enemyPanel', 'statusPanel',
+        'item-window', 'item-window-overlay',
+        'profile-window-overlay', 'status-window-overlay'
+    ];
+
+    panels.forEach(panelId => {
+        const panel = document.getElementById(panelId);
+        if (panel) {
+            panel.style.zIndex = highestZIndex;
+            highestZIndex++;
+        }
+    });
+}
+
+function bringToFront(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        highestZIndex++;
+        element.style.zIndex = highestZIndex;
+    }
+}
+
+// Tooltip system
+const tooltip = document.getElementById("tooltip");
+const tooltipDescription = document.getElementById("tooltip-description");
+const tooltipEffects = document.getElementById("tooltip-effects");
+
+// Add more UI helper functions here as needed
+
+
+// ========================================
+// 3. CHARACTER & STATS
+// ========================================
+
+// Character update function
+function updateCharacterDetails() {
+    if (!Game.character) {
+        console.warn("updateCharacterDetails called before character was ready.");
+        return;
+    }
+
+    Game.character.checkDeadStatus();
+
+    const currentAlcoholStatus = getAlcoholStatus(Game.character.alcoholPercentage);
+    const currentArousalStatus = getArousalStatus(Game.character.arousalPercentage);
+
+    updateStatusPanel();
+
+    Game.character.atk = Game.character.abilities.strength.modifier;
+    Game.character.hit = Game.character.abilities.dexterity.modifier;
+
+    calculateTotalAC();
+
+    if (Game.character.equippedWeapon) {
+        Game.character.damageRoll = Game.character.equippedWeapon.damage_roll;
+    }
+
+    // Update UI elements
+    document.querySelectorAll(".character-name").forEach(el => el.innerText = Game.character.name);
+    document.querySelectorAll(".character-class").forEach(el => el.innerText = Game.character.class);
+    document.querySelectorAll(".character-race").forEach(el => el.innerText = Game.character.race);
+    document.querySelectorAll(".character-level").forEach(el => el.innerText = Game.character.level);
+
+    // Combat stats
+    document.getElementById("character-atk").innerText = Game.character.atk;
+    document.getElementById("character-hit").innerText = Game.character.hit;
+    document.getElementById("character-cri").innerText = Game.character.cri;
+    document.getElementById("character-apr").innerText = Game.character.apr;
+    document.getElementById("character-dr").innerText = Game.character.dr;
+    document.getElementById("character-ac").innerText = Game.character.ac;
+    document.getElementById('character-damage-roll').textContent = Game.character.damageRoll;
+
+    // EXP, HP, MP
+    document.getElementById("exp").innerText = `${Game.character.exp} / ${expRequirements[Game.character.level]}`;
+    document.getElementById("character-hp").innerText = `HP: ${Game.character.currentHp} / ${Game.character.maxHp}`;
+    document.getElementById("character-mp").innerText = `MP: ${Game.character.currentMp} / ${Game.character.maxMp}`;
+
+    // Abilities
+    for (let ability in Game.character.abilities) {
+        document.getElementById(`stat-${ability}`).innerText = Game.character.abilities[ability].score;
+        document.getElementById(`stat-${ability}-mod`).innerText = Game.character.abilities[ability].modifier;
+    }
+
+    // Status percentages and flags
+    document.getElementById("character-corruption-perc").innerText = `${Game.character.corruptionPercentage}%`;
+    document.getElementById("character-innocence-perc").innerText = `${Game.character.innocencePercentage}%`;
+    document.getElementById("character-agony-perc").innerText = `${Game.character.agonyPercentage}%`;
+    document.getElementById("character-alcohol-perc").innerText = `${Game.character.alcoholPercentage}%`;
+
+	document.getElementById("character-dead-status").innerText = Game.character.deadStatus ? "Yes" : "No";
+	document.getElementById("character-blind-status").innerText = Game.character.blindStatus ? "Yes" : "No";
+    document.getElementById("character-blind-duration").innerText = `${Game.character.blindDuration} turns`;
+    document.getElementById("character-paralyze-status").innerText = Game.character.paralyzeStatus ? "Yes" : "No";
+    document.getElementById("character-paralyze-duration").innerText = `${Game.character.paralyzeDuration} turns`;
+    document.getElementById("character-stun-status").innerText = Game.character.stunStatus ? "Yes" : "No";
+    document.getElementById("character-stun-duration").innerText = `${Game.character.stunDuration} turns`;
+    document.getElementById("character-shock-status").innerText = Game.character.shockStatus ? "Yes" : "No";
+    document.getElementById("character-shock-duration").innerText = `${Game.character.shockDuration} turns`;
+    document.getElementById("character-burning-status").innerText = Game.character.burningStatus ? "Yes" : "No";
+    document.getElementById("character-burning-duration").innerText = `${Game.character.burningDuration} turns`;
+    document.getElementById("character-freezing-status").innerText = Game.character.freezingStatus ? "Yes" : "No";
+    document.getElementById("character-freezing-duration").innerText = `${Game.character.freezingDuration} turns`;
+    document.getElementById("character-bleeding-status").innerText = Game.character.bleedingStatus ? "Yes" : "No";
+    document.getElementById("character-bleeding-duration").innerText = `${Game.character.bleedingDuration} turns`;
+    document.getElementById("character-vapors-status").innerText = Game.character.vaporsStatus ? "Yes" : "No";
+    document.getElementById("character-vapors-duration").innerText = `${Game.character.vaporsDuration} turns`;
+    document.getElementById("character-poison-status").innerText = Game.character.poisonStatus ? "Yes" : "No";
+    document.getElementById("character-poison-duration").innerText = `${Game.character.poisonDuration} turns`;
+    document.getElementById("character-unconscious-status").innerText = Game.character.unconsciousStatus ? "Yes" : "No";
+    document.getElementById("character-unconscious-duration").innerText = `${Game.character.unconsciousDuration} turns`;
+    // ... add the rest of your status updates here
+}
+
+
+
+
+// ========================================
+// 4. INVENTORY & EQUIPMENT
+// ========================================
+
+const DEFAULT_DESCRIPTION_MESSAGE = "Hover over an item to see its description.";
+
+// Open Equipment Window
+function openEquipWindow() {
+    const equipOverlay = document.getElementById('equip-overlay');
+    const equipWindow = document.getElementById('equip-window');
+    
+    // Clear previous content from all dropdowns
+    document.getElementById('weapon-dropdown').innerHTML = '';
+    document.getElementById('shield-dropdown').innerHTML = '';
+    document.getElementById('body-dropdown').innerHTML = '';
+
+    // Populate the dropdowns
+    populateDropdown('Weapon', 'weapon-dropdown');
+    populateDropdown('Shield', 'shield-dropdown');
+    populateDropdown('Body', 'body-dropdown');
+
+    // Set default description for each equipped item
+    document.getElementById('current-weapon').textContent = `Currently Equipped: ${Game.character.equippedWeapon?.displayName || "None"}`;
+    document.getElementById('current-shield').textContent = `Currently Equipped: ${Game.character.equippedShield?.displayName || "None"}`;
+    document.getElementById('current-body').textContent = `Currently Equipped: ${Game.character.equippedBody?.displayName || "None"}`;
+
+    document.getElementById('equip-description').textContent = DEFAULT_DESCRIPTION_MESSAGE;
+
+    equipOverlay.style.display = 'block';
+    equipWindow.style.display = 'block';
+}
+
+// Close Equipment Window
+function closeEquipWindow() {
+    document.getElementById('equip-overlay').style.display = 'none';
+}
+
+// Populate Dropdown
+function populateDropdown(type, dropdownId) {
+    const dropdown = document.getElementById(dropdownId);
+    const equipDescription = document.getElementById('equip-description');
+
+    dropdown.innerHTML = '';
+
+    const typeItems = Game.character.inventory.filter(item => {
+        const foundItem = items.find(i => i.name === item.name);
+        return foundItem && foundItem.type === type;
+    });
+
+    typeItems.forEach(item => {
+        const foundItem = items.find(i => i.name === item.name);
+        const option = document.createElement('option');
+        option.value = foundItem.name;
+        option.text = `${foundItem.displayName} (x${item.quantity})`;
+        dropdown.appendChild(option);
+    });
+
+    if (typeItems.length > 0) {
+        const firstItem = items.find(i => i.name === typeItems[0].name);
+        equipDescription.textContent = firstItem ? firstItem.description : '';
+    } else {
+        equipDescription.textContent = DEFAULT_DESCRIPTION_MESSAGE; // Set default if no items
+    }
+
+    dropdown.addEventListener('change', (event) => {
+        const selectedItem = items.find(i => i.name === event.target.value);
+        equipDescription.textContent = selectedItem ? selectedItem.description : DEFAULT_DESCRIPTION_MESSAGE;
+    });
+
+    dropdown.addEventListener('mouseenter', () => {
+        const selectedItem = items.find(i => i.name === dropdown.value);
+        equipDescription.textContent = selectedItem ? selectedItem.description : DEFAULT_DESCRIPTION_MESSAGE;
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+        equipDescription.textContent = DEFAULT_DESCRIPTION_MESSAGE;
+    });
+
+}
+
+// Equip Item
+function equipItemFromDropdown(slot, dropdownId) {
+    const selectedItemName = document.getElementById(dropdownId).value;
+    const itemToEquip = items.find(item => item.name === selectedItemName);
+
+    if (!itemToEquip) return;
+
+    if (slot === 'Weapon') {
+        Game.character.equippedWeapon = itemToEquip;
+        Game.character.damageRoll = itemToEquip.damage_roll;
+    } else if (slot === 'Shield') {
+        Game.character.equippedShield = itemToEquip;
+    } else if (slot === 'Body') {
+        Game.character.equippedBody = itemToEquip;
+    }
+
+    calculateTotalAC();
+    updateCharacterDetails();
+}
+
+
+
+
+// ========================================
+// 5. SAVE / LOAD SYSTEM
+// ========================================
+
+// Array of save slots with timestamps
+const saveSlots = [
+    { id: 1, name: 'Save Slot 1', data: null, timestamp: null },
+    { id: 2, name: 'Save Slot 2', data: null, timestamp: null },
+    { id: 3, name: 'Save Slot 3', data: null, timestamp: null },
+    { id: 4, name: 'Save Slot 4', data: null, timestamp: null },
+    { id: 5, name: 'Save Slot 5', data: null, timestamp: null },
+    { id: 6, name: 'Save Slot 6', data: null, timestamp: null },
+];
+
+// Array of load slots
+const loadSlots = [
+    { id: 1, name: 'Load Slot 1' },
+    { id: 2, name: 'Load Slot 2' },
+    { id: 3, name: 'Load Slot 3' },
+    { id: 4, name: 'Load Slot 4' },
+    { id: 5, name: 'Load Slot 5' },
+    { id: 6, name: 'Load Slot 6' },
+];
+
+// Main Menu Load Button
+function loadGame_MainMenu() {
+    openLoadPopup();
+}
 
 
 
