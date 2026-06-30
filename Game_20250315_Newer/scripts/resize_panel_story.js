@@ -1,3 +1,5 @@
+// Resize logic for story panel.
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const storyPanel = document.querySelector('#storyPanel'); // Updated selector to match the story panel ID
     const storyTitle = document.querySelector('.story-title');
