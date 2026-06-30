@@ -556,14 +556,29 @@ function loadGame(savedData) {
 }
 
 
-
-
 // ========================================
 // 6. MUSIC SYSTEM
 // ========================================
 
 // Music controller is already in music.js
 // Toggle is handled there
+
+
+// ========================================
+// 7. TIME & DATE SYSTEM
+// ========================================
+
+// Time and date logic is in date&time.js
+// Update calls are guarded to use Game.character
+
+
+// ========================================
+// 8. ZONES & ACTIONS
+// ========================================
+
+// Zone and action logic is in zones.js
+// Room navigation and choices
+
 
 
 
