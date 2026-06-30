@@ -1,3 +1,5 @@
+// Music controller.
+
 console.log("music.js loaded");
 
 const MusicController = (() => {
