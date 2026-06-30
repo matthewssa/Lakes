@@ -1,3 +1,5 @@
+// Dice rolling system.
+
 // script.js
 function rollDie() {
     const dice = document.getElementById('dice');
