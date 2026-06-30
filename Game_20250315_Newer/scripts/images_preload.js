@@ -1,3 +1,5 @@
+// Image preloading system.
+
 console.log("preload.js loaded"); // Check if the script loads
 
 // Function to preload images
