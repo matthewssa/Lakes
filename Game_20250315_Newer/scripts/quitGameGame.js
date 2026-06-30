@@ -1,3 +1,5 @@
+// Quit game from in-game menu.
+
 // Function to show the quit confirmation modal
 function quitGameGame() {
     console.log("Quit game function triggered"); // Debugging line
