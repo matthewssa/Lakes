@@ -1,4 +1,5 @@
-
+// This file defines the base character data.
+// It is attached to Game.character during initialization in game.js
 
 const abilityIncreaseLevels = [4, 8, 12, 16, 19];
 
