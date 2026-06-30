@@ -1,3 +1,5 @@
+// Date and time system. Uses Game.character for updates
+
 // Centralized game clock object
 const gameClock = {
     hours: 7,
@@ -11,7 +13,7 @@ const gameClock = {
     addMinutes(minutesToAdd) {
 		console.log(`Adding ${minutesToAdd} minutes to game clock`); // Debugging output
 		
-        if (character.alcoholPercentage > 0) {
+        if (Game.character.alcoholPercentage > 0) {
             this.alcoholEffectTimerMinutes += minutesToAdd;
         }
 		
@@ -54,7 +56,7 @@ const gameClock = {
 
 
         // Apply alcohol reduction if 60 minutes have passed
-        if (this.alcoholEffectTimerMinutes >= 60 && character.alcoholPercentage > 0) {
+        if (this.alcoholEffectTimerMinutes >= 60 && Game.character.alcoholPercentage > 0) {
             console.log("Elapsed minutes >= 60 and alcohol > 0, triggering alcohol decrease.");
             decreaseAlcoholOverTime();
             this.alcoholEffectTimerMinutes -= 60; // Reset elapsed minutes after triggering
@@ -109,11 +111,11 @@ function updateDateTimeDisplay() {
 // Function to decrease alcoholPercentage over time
 function decreaseAlcoholOverTime() {
     console.log("decreaseAlcoholOverTime called"); // Debug
-    if (character.alcoholPercentage > 0) {
-        character.alcoholPercentage -= 1;
-        console.log(`Alcohol Percentage decreased to: ${character.alcoholPercentage}`); // Debug
-        if (character.alcoholPercentage < 0) {
-            character.alcoholPercentage = 0;
+    if (Game.character.alcoholPercentage > 0) {
+        Game.character.alcoholPercentage -= 1;
+        console.log(`Alcohol Percentage decreased to: ${Game.character.alcoholPercentage}`); // Debug
+        if (Game.character.alcoholPercentage < 0) {
+            Game.character.alcoholPercentage = 0;
         }
     } else {
         console.log("Alcohol Percentage is already 0"); // Debug
