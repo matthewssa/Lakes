@@ -1,3 +1,5 @@
+// Resize logic for roll panel.
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const rollPanel = document.querySelector('#rollPanel'); // Updated selector to match your ID
     const rollTitle = document.querySelector('.roll-title');
