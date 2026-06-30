@@ -1,3 +1,5 @@
+// Resize logic for action panel.
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const actionPanel = document.querySelector('#actionPanel'); // Updated selector to match your ID
     const actionTitle = document.querySelector('.action-title');
