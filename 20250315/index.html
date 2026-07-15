@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeons & Exiles</title>
+    <link rel="stylesheet" href="styles/button-middle-panel.css">
+    <link rel="stylesheet" href="styles/button-music.css">
+    <link rel="stylesheet" href="styles/button-title-menu.css">
+    <link rel="stylesheet" href="styles/image-middle-panel.css">
+    <link rel="stylesheet" href="styles/logs-middle-panel.css">
+    <link rel="stylesheet" href="styles/menu-cheat.css">
+    <link rel="stylesheet" href="styles/menu-X-close.css">
+    <link rel="stylesheet" href="styles/menu-roll-panel.css">
+    <link rel="stylesheet" href="styles/menu-enemy-panel.css">
+    <link rel="stylesheet" href="styles/menu-action-panel.css">
+    <link rel="stylesheet" href="styles/menu-story-panel.css">
+    <link rel="stylesheet" href="styles/menu-status-panel.css">
+    <link rel="stylesheet" href="styles/style-game-screen.css">
+    <link rel="stylesheet" href="styles/style-left-panel.css">
+    <link rel="stylesheet" href="styles/style-middle-panel.css">
+    <link rel="stylesheet" href="styles/style-right-panel.css">
+    <link rel="stylesheet" href="styles/style-title-screen.css">
+    <link rel="stylesheet" href="styles/actions-clickables.css">
+    <link rel="stylesheet" href="styles/window-cheat.css">
+    <link rel="stylesheet" href="styles/window-delete.css">
+    <link rel="stylesheet" href="styles/window-equip.css">
+    <link rel="stylesheet" href="styles/window-item.css">
+    <link rel="stylesheet" href="styles/window-status.css">
+    <link rel="stylesheet" href="styles/window-profile.css">
+    <link rel="stylesheet" href="styles/window-quit.css">
+    <link rel="stylesheet" href="styles/window-quit-start-menu.css">
+    <link rel="stylesheet" href="styles/window-save.css">
+    <link rel="stylesheet" href="styles/window-load.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+
+    <!-- Main Menu -->
+    <div class="start-screen" id="start-screen">
+        <img src="images/title-overlay.png" alt="Title Overlay" class="background-image">
+        <div class="menu">
+            <h1 class="menu-title">Dungeons & Exiles</h1>
+            <button class="menu-button" onclick="startGame()">Start Game</button>
+            <button class="menu-button" onclick="loadGame_MainMenu()">Load Game</button>
+            <button class="menu-button" onclick="openOptions()">Options</button>
+            <button class="menu-button" onclick="quitGameStart()">Quit</button>
+        </div>
+
+        <!-- Music Toggle (On Main Screen) -->
+        <div id="music-toggle-main" class="music-toggle">
+            <p>Music</p>
+            <button id="music-toggle-button-main" class="music-button" onclick="toggleMusic()">Off</button>
+        </div>
+    </div>
+    <!-- END OF Main Menu -->
+
+    <!-- Game Screen -->
+    <div class="game-screen" id="game-screen" style="display: none;">
+        <div class="game-container">
+            <!-- Left Menu Panel -->
+            <div class="menu-panel">
+                <ul>
+                    <li><a href="#" onclick="openProfileWindow(); return false;">Profile</a></li>
+                    <li><a href="#" onclick="openStatusWindow(); return false;">Status</a></li>
+                    <li><a href="#" onclick="openEquipWindow(); return false;">Equip</a></li>
+                    <li><a href="#" onclick="openItemWindow()">Item</a></li>
+                    <li><a href="#">Element Resist</a></li>
+                    <li><a href="#">State Resist</a></li>
+                    <li><a href="#">Records</a></li>
+                    <li><a href="#">Options</a></li>
+                    <li><a href="#" onclick="openSavePopup()">Save</a></li> <!-- Trigger Save Popup -->
+                    <li><a href="#" onclick="openLoadPopup()">Load</a></li> <!-- Placeholder for Load Popup -->
+                    <li><a href="#" onclick="quitGameGame()">Quit</a></li>
+                </ul>
+            </div>
+        
+            <!-- Fullscreen Background Overlay for Profile -->
+            <div id="profile-window-overlay" class="profile-window-overlay" style="display: none;">
+                <div class="profile-window-content">
+                    <span class="profile-close" onclick="closeProfileWindow()">&times;</span>
+                    <h2>Profile</h2>
+                    <p>Name: <span class="character-name"></span></p>
+                    <p>Class: <span class="character-class"></span></p>
+                    <p>Race: <span class="character-race"></span></p>
+                    <p>Level: <span class="character-level"></span></p>
+                    
+                    <hr>
+
+                    <h3>Combat Stats</h3>
+                    <p>ATK: <span id="character-atk"></span></p>
+                    <p>HIT: <span id="character-hit"></span></p>
+                    <p>CRI: <span id="character-cri"></span></p>
+                    <p>APR: <span id="character-apr"></span></p>
+                    <p>DR: <span id="character-dr"></span></p>
+                    <p>AC: <span id="character-ac"></span></p>
+                    <p>Damage Roll: <span id="character-damage-roll"></span></p>
+
+                    <hr>
+
+                    <h3>Abilities</h3>
+                    <p>Strength: <span id="stat-strength"></span> (Modifier: <span id="stat-strength-mod">+3</span>)</p>
+                    <p>Dexterity: <span id="stat-dexterity"></span> (Modifier: <span id="stat-dexterity-mod">+1</span>)</p>
+                    <p>Constitution: <span id="stat-constitution"></span> (Modifier: <span id="stat-constitution-mod">+2</span>)</p>
+                    <p>Intelligence: <span id="stat-intelligence"></span> (Modifier: <span id="stat-intelligence-mod">+0</span>)</p>
+                    <p>Willpower: <span id="stat-willpower"></span> (Modifier: <span id="stat-willpower-mod">+1</span>)</p>
+                    <p>Charisma: <span id="stat-charisma"></span> (Modifier: <span id="stat-charisma-mod">-1</span>)</p>
+                </div>
+            </div>
+			
+			<div id="status-window-overlay" class="status-window-overlay" style="display: none;">
+				<div class="status-window-content">
+					<span class="status-close" onclick="closeStatusWindow()">&times;</span>
+					<h2>Status</h2>
+        
+					<p>Name: <span class="character-name"></span></p>
+        
+					<hr>
+        
+					<h3>Mental</h3>
+					<p>Corruption: <span id="character-corruption-perc"></span></p>
+					<p>Innocence: <span id="character-innocence-perc"></span></p>
+					<p>Agony: <span id="character-agony-perc"></span></p>
+					<p>Alcohol: <span id="character-alcohol-perc"></span></p>
+        
+					<hr>
+        
+					<h3>Mental</h3>
+					<p>Dead: <span id="character-dead-status"></span></p>
+					<p>Blind: <span id="character-blind-status"></span> (Duration: <span id="character-blind-duration"></span>)</p>
+					<p>Paralyzed: <span id="character-paralyze-status"></span> (Duration: <span id="character-paralyze-duration"></span>)</p>
+					<p>Stunned: <span id="character-stun-status"></span> (Duration: <span id="character-stun-duration"></span>)</p>
+					<p>Shocked: <span id="character-shock-status"></span> (Duration: <span id="character-shock-duration"></span>)</p>
+					<p>Burning: <span id="character-burning-status"></span> (Duration: <span id="character-burning-duration"></span>)</p>
+					<p>Freezing: <span id="character-freezing-status"></span> (Duration: <span id="character-freezing-duration"></span>)</p>
+					<p>Bleeding: <span id="character-bleeding-status"></span> (Duration: <span id="character-bleeding-duration"></span>)</p>
+					<p>Vapors: <span id="character-vapors-status"></span> (Duration: <span id="character-vapors-duration"></span>)</p>
+					<p>Poisoned: <span id="character-poison-status"></span> (Duration: <span id="character-poison-duration"></span>)</p>
+					<p>Unconscious: <span id="character-unconscious-status"></span> (Duration: <span id="character-unconscious-duration"></span>)</p>
+
+					<hr>
+        
+				</div>
+			</div>
+
+			<!-- Equipment Overlay (Popup) -->
+			<div id="equip-overlay" class="equip-window-overlay" style="display: none;">
+				<div id="equip-window" class="equip-window">
+					<span class="close-btn" onclick="closeEquipWindow()">&times;</span>
+					<h3>Equipment</h3>
+
+					<!-- Equipment Description Box -->
+					<div id="equip-description" class="equip-description-box"></div>
+
+					<!-- Equipment List -->
+					<div class="equip-list">
+						<div class="equip-item">
+							<label for="weapon-dropdown">Weapon:</label>
+							<span id="current-weapon" class="current-item">Currently Equipped: None</span>
+							<select id="weapon-dropdown"></select>
+							<button class="equip-button" onclick="equipItemFromDropdown('Weapon', 'weapon-dropdown')">Equip</button>
+						</div>
+
+						<div class="equip-item">
+							<label for="shield-dropdown">Shield:</label>
+							<span id="current-shield" class="current-item">Currently Equipped: None</span>
+							<select id="shield-dropdown"></select>
+							<button class="equip-button" onclick="equipItemFromDropdown('Shield', 'shield-dropdown')">Equip</button>
+						</div>
+
+						<div class="equip-item">
+							<label for="body-dropdown">Body:</label>
+							<span id="current-body" class="current-item">Currently Equipped: None</span>
+							<select id="body-dropdown"></select>
+							<button class="equip-button" onclick="equipItemFromDropdown('Body', 'body-dropdown')">Equip</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+		
+<!-- Fullscreen Background Overlay -->
+<div class="item-window-overlay" id="item-window-overlay" style="display: none;">
+    <!-- Item Window (Initially Hidden) -->
+    <div class="item-window" id="item-window" style="display: none;">
+        <span class="close" onclick="closeItemWindow()" title="Close Window">&times;</span>
+        <h2>Items</h2>
+        <div class="description-box" id="description-box">Hover over an item to see its description.</div>
+        <div id="item-list" class="item-list"></div>
+    </div>
+</div>
+
+<!-- Save Game Popup Modal -->
+<div class="save-window-overlay" id="save-popup-overlay">
+    <div class="save-window">
+        <span class="close-btn" onclick="closeSavePopup()">&times;</span>
+        <h2>Save Game</h2>
+        <div class="item-list" id="save-slot-list">
+            <!-- Save slots will be dynamically inserted here -->
+        </div>
+        <button class="save-button" onclick="confirmSave()">Save</button>
+        <button class="delete-save-button" onclick="deleteSelectedSaveSlot()" disabled>Delete</button> <!-- New delete button -->
+    </div>
+</div>
+
+<!-- Delete Confirmation Popup Modal -->
+<div class="delete-window-overlay" id="delete-save-prompt-overlay">
+    <div class="delete-window">
+        <span class="quit-close" onclick="closeSaveDeletePrompt()">&times;</span>
+        <p>Are you sure you want to delete this save slot?</p>
+        <button class="confirm-delete-button" onclick="confirmSaveDelete()">Yes</button>
+        <button class="cancel-delete-button" onclick="closeSaveDeletePrompt()">No</button>
+    </div>
+</div>
+
+<!-- Roll Panels Container -->
+<div id="rollPanel" class="roll-history-panel">
+    <h3 class="roll-title">Roll Panel</h3>
+    <div class="roll-content">
+    </div>
+    <div class="resize-handle"></div> <!-- Resize handle -->
+</div>
+
+<!-- Action Panels Container -->
+<div id="actionPanel" class="action-panel">
+    <h3 class="action-title">Action Panel</h3>
+    <div class="action-content">
+        <p id="action-prompt" class="clickable-prompt" onclick="startCharacterCreation()">Click to start character creation.</p>
+    </div>
+    <div class="resize-handle"></div> <!-- Resize handle -->
+</div>
+
+<!-- Story Panels Container -->
+<div class="story-panels-container">
+    <div class="story-panel" id="storyPanel">
+        <h3 class="story-title">Story Panel</h3>
+        <div id="storyContent">
+            <p class="intro-message">Welcome to Dungeon & Exiles.</p>
+        </div>
+        <div class="resize-handle"></div> <!-- Resize handle -->
+    </div>
+</div>
+
+<!-- Enemy Panel Container -->
+<div id="enemyPanel" class="enemy-panel">
+    <h3 class="enemy-title">Enemy Panel</h3>
+    <div class="enemy-content">
+    </div>
+    <div class="resize-handle"></div> <!-- Resize handle -->
+</div>
+
+<div id="statusPanel" class="status-panel">
+    <h3 class="status-title">Status Panel</h3>
+    <div id="status-name"></div> <!-- For status name -->
+    <div id="status-description"></div> <!-- For status description -->
+    <div id="activeEffectsContainer" class="status-effects-container"></div> <!-- Active effects container -->
+    <div class="resize-handle"></div> <!-- Resize handle -->
+</div>
+
+<!-- Tooltip container that will be shown on hover -->
+<div id="tooltip" class="tooltip">
+    <div id="tooltip-description"></div>
+    <div id="tooltip-effects"></div>
+</div>
+
+
+<!-- Cheat Toggle -->
+<div id="cheat-toggle" class="cheat-toggle">
+    <p>Cheats</p>
+    <button id="cheat-toggle-button" onclick="openCheatWindow()">Open</button>
+</div>
+
+<!-- Cheat Popup -->
+<div id="cheat-window-overlay" class="cheat-window-overlay" style="display: none;">
+    <div class="cheat-window" id="cheat-window" style="display: block;"> <!-- Ensure the window is displayed -->
+        <span class="cheat-close" onclick="closeCheatWindow()">&times;</span>
+        <h2>Cheat Menu</h2>
+        <div>
+            <p>Current XP: <span id="cheat-xp">0</span></p> <!-- Added XP display -->
+            <p>Current HP: <span id="cheat-hp">0</span></p> <!-- Added HP display -->
+            <p>Current In-Game Time: <span id="cheat-date-time"></span></p>
+        </div>
+        <button id="add-xp-button" onclick="addXP(100)">Add 100 XP</button>
+        <button id="deal-damage-button" onclick="dealDamage(1)">Deal 1 HP Damage</button>
+        <button id="add-time-button" onclick="addMinutesToGameTime(30)">Add 30 Minutes</button> <!-- New button for adding time -->
+    </div>
+</div>
+
+<!-- Middle Panel -->
+<div class="middle-panel">
+    <img src="images/home.png" alt="Decision-Based Image" class="decision-image" id="decision-image">
+</div>
+
+<!-- Right Character Panel -->
+<div class="character-panel">
+    <div class="character-datetime">
+        <p id="character-date-time"></p>
+    </div>
+    <div class="character-details">
+        <p><span class="character-name"></span></p>
+        <p>Class: <span class="character-class"></span></p>
+        <p>Level: <span class="character-level"></span></p>
+        <p id="character-exp">EXP: <span id="exp">0 / 300</span></p>
+        <p id="character-hp">HP: 0</p>
+        <p id="character-mp">MP: 0</p>
+    </div>
+    <img src="" alt="Character" class="character-image">
+</div>
+
+<!-- Music Toggle (On Game Screen) -->
+<div id="music-toggle-game" class="music-toggle">
+    <p>Music</p>
+    <button id="music-toggle-button-game" class="music-button" onclick="toggleMusic()">Off</button>
+</div>
+        </div>
+    </div>
+
+
+
+<!-- END OF GAME SCREEN -->
+
+<!-- LEAVE THIS SHIT BELOW TO WORK WITH BOTH MAIN MENU AND GAME SCREEN Z-INDEX -->
+
+<!-- Load Game Popup Modal -->
+<div class="load-window-overlay" id="load-popup-overlay" style="display: none;">
+    <div class="load-window">
+        <span class="close-btn" onclick="closeLoadPopup()">&times;</span>
+        <h2>Load Game</h2>
+        <div class="item-list" id="load-slot-list">
+            <!-- Load slots will be dynamically inserted here -->
+        </div>
+        <button class="load-button" onclick="confirmLoad()">Load</button>
+        <button class="delete-load-button" onclick="deleteSelectedLoadSlot()" disabled>Delete</button> <!-- Unique delete button for load -->
+    </div>
+</div>
+
+<!-- Delete Confirmation Popup Modal -->
+<div class="delete-window-overlay" id="delete-load-prompt-overlay">
+    <div class="delete-window">
+        <span class="quit-close" onclick="closeLoadDeletePrompt()">&times;</span>
+        <p>Are you sure you want to delete this save slot?</p>
+        <button class="confirm-delete-button" onclick="confirmLoadDelete()">Yes</button>
+        <button class="cancel-delete-button" onclick="closeLoadDeletePrompt()">No</button>
+    </div>
+</div>
+
+<!-- Quit Confirmation Modal -->
+<div class="quit-window-overlay" id="quit-window-overlay" style="display: none;">
+    <div class="quit-window" id="quit-window" style="display: none;">
+        <span class="quit-close" onclick="closeQuitWindow()">&times;</span>
+        <h2>Quit Game</h2>
+        <p>Are you sure you want to quit?</p>
+        <button onclick="confirmQuit()">Yes</button>
+        <button onclick="closeQuitWindow()">No</button>
+    </div>
+</div>
+
+<!-- Background Music / Needed -->
+<audio id="background-music" loop>
+    <source src="audio/background-music.mp4" type="audio/mp4">
+    Your browser does not support the audio tag.
+</audio>
+
+		
+<!-- JavaScript Includes -->
+<script src="scripts/music.js"></script>
+<script src="scripts/status_effects.js"></script>
+<script src="scripts/expReq.js"></script>
+<script src="scripts/enemies.js"></script>
+<script src="scripts/list_items.js"></script>
+<script src="scripts/date&time.js"></script>
+<script src="scripts/character.js"></script>
+<script src="scripts/game.js"></script>
+<script src="scripts/zones.js"></script>
+<!-- <script src="scripts/status_effects.js"></script> -->
+<script src="scripts/cheatMenu.js"></script>
+<script src="scripts/resize_panel_action.js"></script>
+<script src="scripts/resize_panel_status.js"></script>
+<script src="scripts/resize_panel_roll.js"></script>
+<script src="scripts/resize_panel_story.js"></script>
+<script src="scripts/resize_panel_enemy.js"></script>
+<script src="scripts/quitGameStart.js"></script>
+<script src="scripts/quitGameGame.js"></script>
+<script src="scripts/charactercreation.js"></script>
+<script src="scripts/save&load.js"></script>
+</body>
+</html>
