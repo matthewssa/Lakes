@@ -1,0 +1,51 @@
+/* Log Panels Container */
+.log-panels-container {
+    display: flex; /* Display log panels side by side */
+    gap: 20px; /* Add space between the panels */
+    justify-content: space-between; /* Space out panels evenly */
+    align-items: flex-start; /* Align panels at the top */
+    width: 100%; /* Ensure full width usage */
+    padding-bottom: 20px; /* Add buffer room from the bottom */
+    margin-top: 20px; /* Add margin from content above */
+}
+
+
+
+/* Log Panel Style (Primary Log) */
+.log-panel {
+    position: relative; /* Keep it relative */
+    width: 60%; /* Slightly wider than the roll log panel */
+    height: 300px; /* Fixed height for log panel */
+    background: linear-gradient(135deg, #444, #222); /* Gradient background */
+    border: 2px solid #666; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 20px; /* Extra padding for log panel */
+    margin-bottom: 10px; /* Buffer from the bottom */
+    margin-left: 20px; /* Add space between log-panel and right container edge */
+    color: #eaeaea; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    line-height: 1.5; /* Line spacing */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Scrollbar Customization */
+.log-panel::-webkit-scrollbar {
+    width: 10px; /* Same width for both scrollbars */
+}
+
+.log-panel::-webkit-scrollbar-thumb {
+    background: #555; /* Color of scrollbar thumb */
+    border-radius: 10px; /* Rounded scrollbar thumb */
+}
+
+.log-panel::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Color of scrollbar thumb on hover */
+}
+
+
+
+
+

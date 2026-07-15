@@ -1,0 +1,89 @@
+/* Fullscreen Background Overlay */
+.item-window-overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Below the modal content */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background with transparency */
+    backdrop-filter: blur(5px); /* Adds blur to the entire background */
+}
+
+
+/* Item Popup Modal Content */
+.item-window {
+    display: none; /* Hidden by default */
+    position: fixed; /* Center the modal */
+    z-index: 1000; /* Above the background overlay */
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Perfect centering */
+    width: 80%; /* Limit width */
+    max-width: 600px; /* Max width */
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    padding: 30px; /* Spacing inside the modal */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    color: #BBAA6A; /* Text color */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    z-index: 2; /* Ensure it's above the blur background */
+}
+
+/* Close Button for the Item Window */
+.item-window .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #BBAA6A;
+    cursor: pointer;
+}
+
+.item-window .close-btn:hover {
+    color: red; /* Change color on hover */
+}
+
+/* Item Layout */
+.item {
+    position: relative; /* Make the item a positioning context for the tooltip */
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    margin-bottom: 10px;
+    padding: 5px 1;
+    white-space: nowrap; /* Prevents text from wrapping */
+    border-bottom: 1px solid #666;
+}
+
+/* Golden text for item names */
+.item-name {
+    cursor: pointer;
+    color: #BBAA6A; /* Golden text color for item names */
+    text-decoration: underline;
+}
+
+.item-weight,
+.item-quantity {
+    margin-left: 10px; /* Adjust to provide space between details */
+    color: #BBAA6A; /* Golden text color for weight and quantity */
+}
+
+/* Item List */
+.item-list {
+    max-height: 300px; /* Set a maximum height for the item list */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Description Box */
+.description-box {
+    background-color: #444; /* Dark background for the description box */
+    color: #BBAA6A; /* Golden text color for description */
+    padding: 10px; /* Padding for better spacing */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Space between description and item list */
+    position: sticky; /* Make the box sticky */
+    top: 0; /* Stick to the top of the item window */
+    z-index: 10; /* Ensure it stays on top of the item list */
+}

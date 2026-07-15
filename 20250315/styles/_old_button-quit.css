@@ -1,0 +1,29 @@
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background with transparency */
+    backdrop-filter: blur(5px); /* Adds blur to the background */
+}
+
+/* Modal Content */
+.modal-content {
+    position: fixed; /* Fixed positioning for modal content */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset to ensure centering */
+    width: 80%; /* Adjust as necessary */
+    max-width: 600px; /* Optional max width for smaller screens */
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    color: #BBAA6A; /* Gold text for a regal feel */
+    padding: 20px; /* Padding for aesthetics */
+    border-radius: 10px; /* Optional rounded corners */
+    text-align: center; /* Center align text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}

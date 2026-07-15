@@ -1,0 +1,36 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222;
+    color: #eaeaea;
+}
+
+.log-panels-container {
+    text-align: center;
+}
+
+.dice {
+    font-size: 100px; /* Size of the die */
+    transition: transform 0.2s ease-in-out;
+}
+
+.dice-rolling {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    50% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.dice-roll-result {
+    font-size: 1.5em; /* Font size */
+    margin-top: 10px; /* Space above the result */
+}

@@ -1,0 +1,86 @@
+
+/* Roll History Panel - Movable and Resizable */
+.status-panel {
+    position: fixed; /* Absolute position to make it movable */
+    bottom: 225px; /* Initial placement */
+    right: 50px; /* Initial left placement */
+    width: 275px; /* Full width of the menu panel */
+    max-width: 600px; /* Set max width for resizing */
+    min-width: 200px; /* Set min width for resizing */
+	min-height: 150px; /* Minimum height to prevent drastic resizing */
+    max-height: 750px; /* Optional: Set a max height */
+    height: 250px; /* Initial height */
+    background: rgba(68, 68, 68, 0.8); /* Semi-transparent dark background */
+    border: 2px solid #666; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    color: #BBAA6A; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    line-height: 1.5; /* Line spacing */
+    resize: both; /* Allow both horizontal and vertical resizing */
+    overflow: auto; /* Allow content scrolling */
+    cursor: move; /* Show move cursor */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Sticky Title for Roll Panel */
+.status-title {
+    top: 0; /* Position it at the top of the panel */
+	margin: 0; /* Remove default margin */
+    background: rgba(68, 68, 68, 0.8); /* Semi-transparent background for title */
+    padding: 5px; /* Padding for the title */
+    font-size: 1.1em; /* Adjust font size */
+    font-weight: bold; /* Make the title bold */
+    cursor: move; /* Indicate draggable title */
+    user-select: none; /* Prevent text selection while dragging */
+    color: #BBAA6A; /* Gold color for the roll history panel */
+    z-index: 1003; /* Ensure it is above the scrollable content */
+	position: sticky;
+}
+
+/* Roll Content */
+.status-content {
+    max-height: calc(100% - 50px); /* Adjust based on title height */
+    overflow-y: auto; /* Allow scrolling for the content */
+}
+
+/* Scrollbar Customization */
+.status-panel::-webkit-scrollbar {
+    width: 10px; /* Set width for the scrollbar */
+}
+
+.status-panel::-webkit-scrollbar-thumb {
+    background: #555; /* Color of scrollbar thumb */
+    border-radius: 10px; /* Rounded scrollbar thumb */
+}
+
+.status-panel::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Color of scrollbar thumb on hover */
+}
+
+
+
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #BBAA6A;
+    border-radius: 5px;
+    padding: 10px;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+    max-width: 250px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.status-name {
+    cursor: pointer; /* Make status name clickable */
+}
+
+.status-effect {
+    margin-bottom: 5px;
+}
+
+.tooltip p {
+    margin: 0;
+}
+

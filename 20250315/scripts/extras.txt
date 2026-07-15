@@ -1,0 +1,174 @@
+
+// Global variable to track the latest active room
+let latestActiveRoom = null;
+
+function finishSetup() {
+    const rollLogPanel = document.getElementById("rollLogPanel");
+
+    // Finalize character setup or continue to the next step
+    rollLogPanel.innerHTML = `<h2>Character Setup Complete!</h2>`;
+    rollLogPanel.innerHTML += `<p>Your character is ready for the adventure!</p>`;
+
+
+    // Add a Next button
+    rollLogPanel.innerHTML += `<button class="game-button" onclick="goToNextRoom()">Next</button>`;
+}
+
+// Function to add roll results to the secondary roll log panel
+function addToRollLog(rollResult) {
+    const rollLogPanel = document.getElementById('rollLogPanel');
+    const rollMessage = document.createElement('p');
+    rollMessage.textContent = rollResult;
+    rollLogPanel.appendChild(rollMessage);
+    
+    // Auto scroll to the bottom of the roll log
+    rollLogPanel.scrollTop = rollLogPanel.scrollHeight;
+}
+
+function goToNextRoom() {
+    // Check if it's the first time (no active room yet)
+    if (latestActiveRoom === null) {
+        // First time, go to showRoomDetails and set it as the latest active room
+        showRoomDetails();
+        latestActiveRoom = "showRoomDetails";
+    } else {
+        // Go to the last active room
+        window[latestActiveRoom]();
+    }
+}
+
+
+function showRoomDetails() {
+	latestActiveRoom = "showRoomDetails";
+    const logContent = document.getElementById("logContent");
+    const characterImage = document.querySelector(".character-image"); // Get character image element
+    
+    // Change back to standing image
+    characterImage.src = "images/standing.png";
+
+// Describe Miene's bedroom
+logContent.innerHTML = `<h3>Miene's Bedroom</h3>`;
+logContent.innerHTML += `<p>Miene is nestled comfortably on her opulent bed, draped in a cascade of silken pillows, her mind swirling with dreams and possibilities. As she gazes thoughtfully at the twinkling stars visible through her ornate window, she wonders what adventures await her today.</p>`;
+logContent.innerHTML += `<p>In this cozy haven, Miene has several delightful options to choose from:</p>`;
+
+
+    // List of choices
+    logContent.innerHTML += `<ul>`;
+    logContent.innerHTML += `<li><button class="game-button" onclick="rest()">Rest</button></li>`;
+    logContent.innerHTML += `<li><button class="game-button" onclick="leaveRoom()">Leave Room</button></li>`;
+    logContent.innerHTML += `<li><button class="game-button" onclick="lookInMirror()">Look in the Mirror</button></li>`;
+    logContent.innerHTML += `<li><button class="game-button" onclick="openWardrobe()">Open Wardrobe</button></li>`;
+    logContent.innerHTML += `</ul>`;
+}
+
+// Define actions for each choice
+function rest() {
+	latestActiveRoom = "rest";
+    const logContent = document.getElementById("logContent");
+    const characterImage = document.querySelector(".character-image"); // Get character image element
+    
+    // Change to a random sleeping image
+    const randomIndex = Math.floor(Math.random() * sleepingImages.length);
+    characterImage.src = sleepingImages[randomIndex];
+    
+    logContent.innerHTML = `<h2>Resting...</h2>`;
+logContent.innerHTML += `<p>Miene takes a moment to gather her thoughts and recover in the quiet comfort of her chambers. Feeling restored, she steels herself for the challenges that lie ahead.</p>`;
+    logContent.innerHTML += `<button class="game-button" onclick="showRoomDetails()">Continue Adventure</button>`;
+}
+
+function leaveRoom() {
+	latestActiveRoom = "leaveRoom";
+    const logContent = document.getElementById("logContent");
+    logContent.innerHTML = `<h2>Leaving the Room</h2>`;
+    logContent.innerHTML += `<p>Miene steps out of her room, ready to explore the castle and see what awaits her outside.</p>`;
+    // Add any additional logic for leaving the room here
+    logContent.innerHTML += `<button class="game-button" onclick="continueCastleHallway()">Enter Castle Hallway</button>`;
+}
+
+function lookInMirror() {
+	latestActiveRoom = "lookInMirror";
+    const logContent = document.getElementById("logContent");
+    logContent.innerHTML = `<h2>Looking in the Mirror</h2>`;
+    logContent.innerHTML += `<p>Miene gazes into the mirror, admiring her reflection. She feels a sense of determination and bravery.</p>`;
+    // Add any additional logic for looking in the mirror here
+    logContent.innerHTML += `<button class="game-button" onclick="showRoomDetails()">Continue Adventure</button>`;
+}
+
+function openWardrobe() {
+	latestActiveRoom = "openWardrobe";
+    const logContent = document.getElementById("logContent");
+    logContent.innerHTML = `<h2>Opening the Wardrobe</h2>`;
+    logContent.innerHTML += `<p>Miene opens the wardrobe, revealing a selection of beautiful dresses and accessories. She contemplates which outfit to wear for her upcoming adventure.</p>`;
+    // Add any additional logic for opening the wardrobe here
+    logContent.innerHTML += `<button class="game-button" onclick="showRoomDetails()">Continue Adventure</button>`;
+}
+
+
+function continueAdventure() {
+	latestActiveRoom = "continueAdventure";
+    const logContent = document.getElementById("logContent");
+    logContent.innerHTML = `<h2>The Adventure Begins!</h2>`;
+    logContent.innerHTML += `<p>Miene is now ready to embark on her journey. What will she face next? The adventure awaits!</p>`;
+    // Add logic to transition into the next phase of the game
+}
+
+
+function continueCastleHallway() {
+    latestActiveRoom = "continueCastleHallway";
+    const logContent = document.getElementById("logContent");
+    logContent.innerHTML = `<h2>Castle Hallway</h2>`;
+    logContent.innerHTML += `<p>Miene enters the castle hallway. The atmosphere is tense, and danger lurks in the shadows.</p>`;
+
+    // Hardcoded zone details for this room
+    const zone = {
+        zoneName: "Castle Hallway",
+        levelRange: "1-2", // Define the level range for enemies in this zone
+        dangerLevel: 40    // Set the danger level for this zone
+    };
+
+    logContent.innerHTML += `<p>Current Zone: ${zone.zoneName} (Enemy Levels: ${zone.levelRange})</p>`;
+
+    const dangerLevel = calculateDangerLevel(zone.dangerLevel);
+    logContent.innerHTML += `<p>Danger Level: ${zone.dangerLevel} (Chance of enemy spawn: ${dangerLevel}%)</p>`;
+
+    // Check for enemy spawn
+    if (Math.random() * 100 < dangerLevel) {
+        // Enemy appears
+        const enemy = spawnEnemy(zone.levelRange);
+        if (enemy) {
+            logContent.innerHTML += `<p>An enemy has appeared: ${enemy.name} (Level: ${enemy.level})!</p>`;
+            // Add logic to start the battle here
+        } else {
+            logContent.innerHTML += `<p>No enemies available for this level range.</p>`;
+        }
+    } else {
+        // The hallway is clear; allow navigation options
+        logContent.innerHTML += `<p>The hallway seems clear... for now.</p>`;
+
+        // Add a button to return to Miene's bedroom (showRoomDetails)
+        logContent.innerHTML += `<button class="game-button" onclick="showRoomDetails()">Go back to Miene's Bedroom</button>`;
+    }
+}
+
+// Function to spawn an enemy based on the level range
+function spawnEnemy(levelRange) {
+    // Parse the level range to get min and max levels
+    const [minLevel, maxLevel] = levelRange.split('-').map(Number);
+
+    // Filter enemies based on their levels
+    const availableEnemies = enemies.filter(enemy => enemy.level >= minLevel && enemy.level <= maxLevel);
+
+    // If there are any enemies available, randomly select one
+    if (availableEnemies.length > 0) {
+        const randomEnemy = availableEnemies[Math.floor(Math.random() * availableEnemies.length)];
+        return randomEnemy; // Return the selected enemy
+    }
+    
+    return null; // Return null if no enemies are available
+}
+
+function calculateDangerLevel(baseDangerLevel) {
+    // You can add more complex logic here if you want danger levels to vary
+    return baseDangerLevel;
+}
+

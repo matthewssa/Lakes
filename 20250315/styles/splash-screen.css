@@ -1,0 +1,28 @@
+.splash-screen {
+    position: fixed; /* Absolute positioning to overlay */
+    top: 40%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset to ensure centering */
+    width: 80%; /* Adjust as necessary */
+    max-width: 600px; /* Optional max width for smaller screens */
+    background-color: rgba(0, 0, 0, 0.5); /* Darker background for a moody effect */
+    color: #BBAA6A; /* Gold text for a regal feel */
+    z-index: 10; /* Ensure it overlays on top */
+    display: flex; /* Start hidden */
+    flex-direction: column;
+    padding: 20px; /* Add some padding for aesthetics */
+    border-radius: 10px; /* Optional rounded corners */
+    text-align: center; /* Center align text */
+}
+
+.splash-screen h1 {
+    font-family: 'Cinzel', serif; /* Fantasy font */
+    font-size: 3em; /* Adjust font size */
+    margin-bottom: 20px; /* Space below title */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow effect for depth */
+}
+
+.splash-screen p {
+    font-family: 'Cinzel', serif; /* Same font for paragraphs */
+    font-size: 1.5em; /* Adjust font size */
+}

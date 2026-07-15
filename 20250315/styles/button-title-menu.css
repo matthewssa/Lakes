@@ -1,0 +1,21 @@
+.menu-button {
+    margin: 10px; /* Space between buttons */
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 2px solid #8B0000; /* Dark red border */
+    border-radius: 8px; /* Slightly more rounded edges */
+    background: linear-gradient(45deg, #DAA520, #8B0000); /* Darker gold to deep red gradient */
+    color: #fff; /* Lighter text color for better contrast */
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Smooth transition */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Darker shadow for more depth */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Darker text shadow */
+    font-family: 'MedievalSharp', cursive; /* Use the same font as the title */
+    font-weight: bold; /* Make the text bold */
+}
+
+.menu-button:hover {
+    background: linear-gradient(45deg, #8B0000, #DAA520); /* Reverse gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6); /* Stronger shadow on hover */
+}

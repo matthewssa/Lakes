@@ -1,0 +1,37 @@
+.character-panel {
+    width: 20%; /* Right panel */
+    background-color: black;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: flex-start; /* Align items at the top */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px; /* Add padding around the panel */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.character-details {
+    color: #BBAA6A; /* Gold text color to match the profile panel */
+    font-size: 18px; /* Make the text smaller */
+    margin-bottom: 10px; /* Space between details and other elements */
+    padding-right: 15px; /* Add padding to the right to create space from the border */
+    align-self: flex-start; /* Align text to the top left */
+    text-align: left; /* Ensure text is aligned left */
+}
+.character-image {
+    max-width: 100%;
+    height: auto;
+	    padding: 10px; /* Optional: Add padding around the image */
+	margin-top: 350px;
+    border-radius: 8px; /* Optional: Round the corners of the background */
+	    object-fit: contain; /* Ensure the image scales proportionally */
+	-webkit-mask-image: radial-gradient(ellipse at center,, white 20%, transparent 70%);
+    mask-image: radial-gradient(ellipse at center, white 20%, transparent 70%);
+}
+
+.character-datetime {
+    color: #BBAA6A; /* Gold text color to match character details */
+    font-size: 16px; /* Adjust size as needed */
+    margin-bottom: 10px; /* Space between time and character details */
+    text-align: left; /* Align to the left */
+    padding-right: 15px; /* Optional padding for spacing */
+    align-self: flex-start;

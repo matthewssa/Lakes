@@ -1,0 +1,42 @@
+.start-screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh; /* Full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-image {
+    position: absolute; /* Make it absolute */
+    top: 0;
+    left: 0;
+    width: 100%; /* Cover the full width */
+    height: 100%; /* Cover the full height */
+    object-fit: cover; /* Cover the whole screen */
+    z-index: -1; /* Send the image behind the menu */
+}
+
+.menu {
+    color: white; /* Menu text color */
+    text-align: center;
+    z-index: 1; /* Bring menu to the front */
+    position: relative; /* Make it relative to its parent */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center align items */
+    padding-top: 50px; /* Adjust this value to move the title higher or lower */
+}
+
+.menu-title {
+    margin-bottom: 150px; /* Space below the title */
+    margin-top: -180px; /* Decrease this value to move the title higher */
+    font-size: 3.25em; /* Adjust size as needed */
+    color: #800020;
+    text-shadow: 
+        1px 1px 0 #000,  
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000; /* Creates a thick black outline */
+    font-family: 'MedievalSharp', cursive; /* Using Blackletter font */
+}

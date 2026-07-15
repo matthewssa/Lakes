@@ -1,0 +1,100 @@
+
+/* Roll History Panel - Movable and Resizable */
+.enemy-panel {
+    position: fixed; /* Absolute position to make it movable */
+    bottom: 855px; /* Initial placement */
+    left: 300px; /* Initial left placement */
+    width: 275px; /* Full width of the menu panel */
+    max-width: 600px; /* Set max width for resizing */
+    min-width: 200px; /* Set min width for resizing */
+	min-height: 150px; /* Minimum height to prevent drastic resizing */
+    max-height: 750px; /* Optional: Set a max height */
+    height: 250px; /* Initial height */
+    background: rgba(68, 68, 68, 0.8); /* Semi-transparent dark background */
+    border: 2px solid #666; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    color: #BBAA6A; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    line-height: 1.5; /* Line spacing */
+    resize: both; /* Allow both horizontal and vertical resizing */
+    overflow: auto; /* Allow content scrolling */
+    cursor: move; /* Show move cursor */
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Sticky Title for Roll Panel */
+.enemy-title {
+    top: 0; /* Position it at the top of the panel */
+	margin: 0; /* Remove default margin */
+    background: rgba(68, 68, 68, 0.8); /* Semi-transparent background for title */
+    padding: 5px; /* Padding for the title */
+    font-size: 1.1em; /* Adjust font size */
+    font-weight: bold; /* Make the title bold */
+    cursor: move; /* Indicate draggable title */
+    user-select: none; /* Prevent text selection while dragging */
+    color: #BBAA6A; /* Gold color for the roll history panel */
+    z-index: 1003; /* Ensure it is above the scrollable content */
+	position: sticky;
+}
+
+/* Roll Content */
+.enemy-content {
+    max-height: calc(100% - 50px); /* Adjust based on title height */
+    overflow-y: auto; /* Allow scrolling for the content */
+}
+
+/* Scrollbar Customization */
+.enemy-panel::-webkit-scrollbar {
+    width: 10px; /* Set width for the scrollbar */
+}
+
+.enemy-panel::-webkit-scrollbar-thumb {
+    background: #555; /* Color of scrollbar thumb */
+    border-radius: 10px; /* Rounded scrollbar thumb */
+}
+
+.enemy-panel::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Color of scrollbar thumb on hover */
+}
+
+/* Flexbox layout for enemy info line */
+.enemy-info-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+/* Style for the enemy entries */
+.enemy-entry {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #666; /* Divider between enemies */
+}
+
+.enemy-entry:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light background on hover */
+}
+
+/* Clickable enemy name */
+.clickable-enemy {
+    color: #BBAA6A;
+}
+
+/* Highlight selected enemy */
+.enemy-selected {
+    background-color: rgba(255, 223, 0, 0.3); /* Highlight with yellowish background */
+    border-left: 4px solid #FFD700; /* Golden border to indicate selection */
+}
+
+/* Hidden enemy description */
+.enemy-description {
+    margin-top: 5px;
+    padding: 5px;
+    background: rgba(68, 68, 68, 0.9); /* Dark background for description */
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #fff;
+}
+

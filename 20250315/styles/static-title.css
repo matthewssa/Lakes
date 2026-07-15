@@ -1,0 +1,16 @@
+/* Make the titles static within their panels */
+.roll-title, .action-title, .story-title, .enemy-title, .status-title {
+    position: sticky;  /* Sticky positioning keeps the element "stuck" to the top while the content scrolls */
+    top: 0;            /* Stick to the top of the panel */
+    background-color: white; /* Set background color to avoid content showing through the title */
+    z-index: 10;       /* Ensure the title stays on top of the content */
+    padding: 10px;     /* Optional: add some padding for better readability */
+    border-bottom: 1px solid #ccc; /* Optional: add a border to separate the title from the content */
+}
+
+/* Ensure panels are scrollable if content exceeds their size */
+.roll-content, .action-content, .story-panel, .enemy-content, .status-content {
+    max-height: 300px;   /* Adjust this height as needed for your layout */
+    overflow-y: auto;    /* Enable vertical scrolling within the panels */
+    padding-top: 40px;   /* Ensure there's space for the sticky title */
+}

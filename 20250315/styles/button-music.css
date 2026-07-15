@@ -1,0 +1,45 @@
+/* Music Toggle Label and Button */
+.music-toggle {
+    position: fixed;
+    bottom: 10px;
+    left: 10px; /* Positioning the music toggle button */
+    z-index: 1000;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+}
+
+.music-toggle p {
+    margin: 0;
+    font-size: 16px;
+    color: #BBAA6A;
+    text-shadow: 
+        1px 1px 0 #000,  
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000; /* Creates a thick black outline */
+    font-family: 'MedievalSharp', cursive; /* Using Blackletter font */
+}
+
+/* Music Toggle Button */
+#music-toggle-button-game,
+#music-toggle-button-main {
+    padding: 5px 10px; /* Keep the smaller padding */
+    font-size: 12px; /* Keep the smaller font size */
+    background: linear-gradient(45deg, #DAA520, #8B0000); /* Darker gold to deep red gradient */
+    color: #BBAA6A; /* Lighter text color */
+    border: 1px solid #8B0000; /* Add a subtle border */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Add transition for smooth hover effects */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* Darker shadow for depth */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Darker text shadow */
+}
+
+/* Button hover effect */
+#music-toggle-button-game:hover,
+#music-toggle-button-main:hover {
+    background: linear-gradient(45deg, #8B0000, #DAA520); /* Reverse gradient on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.6); /* Stronger shadow on hover */
+}

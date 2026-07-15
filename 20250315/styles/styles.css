@@ -1,0 +1,40 @@
+/* styles.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.roll-message {
+    font-size: 1.1em; /* Slightly larger than the intro message */
+    color: #BBAA6A; /* Panel roll message gold */
+    margin: 10px 0; /* Margin for spacing */
+    text-align: center; /* Centered text */
+}
+
+.intro-message {
+    font-size: 1.2em; /* Slightly larger text */
+    color: #BBAA6A; /* Log Panel Gold text color */
+    margin-bottom: 15px; /* Space below the message */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Centered text */
+
+
+.roll-result {
+    font-size: 1.2em; /* Slightly larger text for result */
+    color: #ffd700; /* Gold color for visibility */
+    text-align: center; /* Centered text */
+    margin-top: 15px; /* Space above result */
+}
+
+
+
+
+
+
+
+
+
+

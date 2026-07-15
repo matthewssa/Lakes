@@ -1,0 +1,15 @@
+.decision-image {
+    flex: 1; /* Take up remaining space */
+    display: block;
+    background-color: #1a1a1a;
+    padding: 10px; /* Optional: Add padding around the image */
+    border-radius: 8px; /* Optional: Round the corners of the background */
+    color: white;
+    max-width: 90%; /* Limit image width */
+    max-height: 70%; /* Limit image height */
+    object-fit: contain; /* Ensure the image scales proportionally */
+    margin-top: 20px; /* Space between image and top of the panel */
+    -webkit-mask-image: radial-gradient(ellipse at center,, white 20%, transparent 60%);
+    mask-image: radial-gradient(ellipse at center, white 20%, transparent 60%);
+}
+

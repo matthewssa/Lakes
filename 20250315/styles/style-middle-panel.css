@@ -1,0 +1,10 @@
+/* Middle Panel for Styling and Log */
+.middle-panel {
+    background-color: #1a1a1a;
+    flex: 1; /* Take up remaining space */
+    flex-shrink: 0; /* Prevent shrinking */
+    display: flex;
+    flex-direction: column; /* Stack the grid and log vertically */
+    align-items: center; /* Center align content */
+    overflow: hidden; /* Prevent overflow */
+}

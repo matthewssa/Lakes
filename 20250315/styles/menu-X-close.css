@@ -1,0 +1,16 @@
+/* Gold X Close Button for Profile and Items */
+.close {
+    color: #BBAA6A; /* Gold color for the close button */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff0000; /* Change to red on hover or focus */
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,27 @@
+/* Base style for the clickable prompt */
+.clickable-prompt {
+    color: #BBAA6A; /* Gold text */
+    cursor: pointer; /* Change cursor to pointer */
+    padding: 8px 10px; /* Add padding for better spacing */
+    border-radius: 5px; /* Rounded corners for aesthetics */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+	            font-weight: bold; /* Make text bold */
+    display: block; /* Allow padding and background to fit the text */
+    margin: 4px; /* Add a slight margin to create space around the box */
+
+}
+
+/* Hover effect */
+.clickable-prompt:hover {
+    background-color: rgba(255, 165, 0, 0.8); /* Dark orange background on hover */
+    color: black; /* Change text color to black on hover */
+	    padding: 8px 10px; /* Maintain padding on hover for consistency */
+
+}
+
+/* Optional: Adding icons */
+.clickable-prompt::before {
+    content: '▶'; /* Unicode for right arrow */
+    margin-right: 5px; /* Space between icon and text */
+    font-weight: bold; /* Bold icon for visibility */
+}

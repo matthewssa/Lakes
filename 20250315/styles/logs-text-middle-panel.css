@@ -1,0 +1,49 @@
+/* Log Panel Style */
+.log-panel {
+    position: fixed; /* Fixed position so it stays in view */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust the position to truly center */
+    
+    width: 80vw; /* 80% of the viewport width */
+    max-width: 1200px; /* Optional: Limit the maximum width */
+    height: 20vh; /* Set height to 20% of the viewport height */
+    max-height: 300px; /* Ensure it doesn't grow too tall */
+    
+    background: linear-gradient(135deg, #444, #222); /* Gradient background */
+    border: 2px solid #666; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    overflow-y: scroll; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 15px; /* Padding for content */
+    
+    color: #eaeaea; /* Font color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    line-height: 1.5; /* Improved line spacing for readability */
+}
+
+/* Optional: Add hover effect */
+.log-panel:hover {
+    border-color: #aaa; /* Change border color on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Increase shadow on hover */
+}
+
+/* Scrollbar Customization */
+.log-panel::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+.log-panel::-webkit-scrollbar-thumb {
+    background: #555; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded scrollbar thumb */
+}
+
+.log-panel::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Color of the scrollbar thumb on hover */
+}
+
+/* Ensuring the log panel stays at the bottom of the game screen */
+.game-screen > .log-panel {
+    flex-shrink: 0; /* Keep the log panel at the bottom */
+}

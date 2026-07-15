@@ -1,0 +1,13 @@
+
+/* Game screen styling */
+.game-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+}
+
+.game-container {
+    display: flex;
+    flex: 1; /* Take up remaining space */
+    position: relative; /* Ensure child elements are positioned relative to this */
+}

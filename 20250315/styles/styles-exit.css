@@ -1,0 +1,52 @@
+/* In your styles.css */
+html, body {
+    height: 100%; /* Full height for both html and body */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+body {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: #000; /* Background color fallback */
+    color: white; /* Text color */
+    background-image: url('../images/exit-image.png'); /* Set your exit image here */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+}
+
+.exit-screen {
+    text-align: center;
+    z-index: 1; /* Ensure the text is above the background */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    padding: 20px; /* Space inside the box */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Light shadow for depth */
+    margin: 20px; /* Add some margin for spacing from the edges */
+}
+
+h1 {
+    font-size: 2em; /* Increase font size for the header */
+    margin: 10px 0; /* Add some margin for spacing */
+    color: #fff; /* White for header text */
+}
+
+p {
+    font-size: 1.5em; /* Increase font size for paragraphs */
+    margin: 5px 0; /* Add some margin for spacing */
+    color: #fff; /* White for paragraph text */
+}
+
+
+.return-menu {
+    font-size: 1.5em; /* Size of the menu text */
+    color: #fff; /* White text color */
+    margin-top: 20px; /* Adjust the margin above the menu text */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.return-menu:hover {
+    color: #ccc; /* Change text color on hover for effect */
+}
